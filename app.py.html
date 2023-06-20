@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>app.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #808080;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+app.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">streamlit </span><span class="s0">as </span><span class="s1">st</span>
+<span class="s0">import </span><span class="s1">pickle</span>
+<span class="s0">import </span><span class="s1">pandas </span><span class="s0">as </span><span class="s1">pd</span>
+<span class="s0">import </span><span class="s1">numpy </span><span class="s0">as </span><span class="s1">np</span>
+
+
+
+<span class="s1">data_dict= pickle.load(open(</span><span class="s2">'data.pkl'</span><span class="s0">,</span><span class="s2">'rb'</span><span class="s1">))</span>
+<span class="s1">data= pd.DataFrame(data_dict)</span>
+<span class="s1">pipe = pickle.load(open(</span><span class="s2">'pipe.pkl'</span><span class="s0">,</span><span class="s2">'rb'</span><span class="s1">))</span>
+
+<span class="s1">st.title(</span><span class="s2">'LAPTOP PRICE PRECITION.'</span><span class="s1">)</span>
+
+<span class="s3">#BRAND.</span>
+<span class="s1">company= st.selectbox(</span><span class="s2">'SELECT COMPANY.'</span><span class="s0">,</span><span class="s1">data[</span><span class="s2">'Company'</span><span class="s1">].unique())</span>
+
+<span class="s3">#TYPE OF  LAPTOP.</span>
+<span class="s1">typebook= st.selectbox(</span><span class="s2">'SELECT TYPE.'</span><span class="s0">,</span><span class="s1">data[</span><span class="s2">'TypeName'</span><span class="s1">].unique())</span>
+
+<span class="s3">#RAM.</span>
+<span class="s1">ram= st.selectbox(</span><span class="s2">'SELECT RAM.'</span><span class="s0">,</span><span class="s1">[</span><span class="s4">2</span><span class="s0">,</span><span class="s4">4</span><span class="s0">,</span><span class="s4">6</span><span class="s0">,</span><span class="s4">8</span><span class="s0">,</span><span class="s4">12</span><span class="s0">,</span><span class="s4">16</span><span class="s0">,</span><span class="s4">24</span><span class="s0">,</span><span class="s4">32</span><span class="s0">,</span><span class="s4">64</span><span class="s1">])</span>
+
+<span class="s3">#WEIGHT.</span>
+<span class="s1">weight= number = st.number_input(</span><span class="s2">'ENTER WEIGHT OF LAPTOP.'</span><span class="s1">)</span>
+
+<span class="s3">#TOUCHSCREEN.</span>
+<span class="s1">touchscreen= st.selectbox(</span><span class="s2">'TOUCHSCREEN'</span><span class="s0">,</span><span class="s1">[</span><span class="s2">'YES'</span><span class="s0">,</span><span class="s2">'NO'</span><span class="s1">])</span>
+
+<span class="s3">#IPS</span>
+<span class="s1">ips= st.selectbox(</span><span class="s2">'IPS'</span><span class="s0">,</span><span class="s1">[</span><span class="s2">'YES'</span><span class="s0">,</span><span class="s2">'NO'</span><span class="s1">])</span>
+
+<span class="s3">#SCREEN SIZE.</span>
+<span class="s1">screen_size= st.number_input(</span><span class="s2">'Screen Size.'</span><span class="s1">)</span>
+
+<span class="s3">#RESOLUTION.</span>
+<span class="s1">resolution= st.selectbox(</span><span class="s2">'SCREEN RESOLUTION'</span><span class="s0">,</span><span class="s1">[</span><span class="s2">'1920x1080'</span><span class="s0">,</span><span class="s2">'1366x768'</span><span class="s0">,</span><span class="s2">'1600x900'</span><span class="s0">,</span><span class="s2">'3840x2160'</span><span class="s0">,</span><span class="s2">'3200x1800'</span><span class="s0">,</span><span class="s2">'2880x1800'</span><span class="s0">,</span><span class="s2">'2560x1600'</span><span class="s0">,</span><span class="s2">'2560x1440'</span><span class="s0">,</span><span class="s2">'2304x1440'</span><span class="s1">])</span>
+
+
+<span class="s3">#CPU BRAND.</span>
+<span class="s1">cpu_brand= st.selectbox(</span><span class="s2">'CPU BRAND'</span><span class="s0">,</span><span class="s1">data[</span><span class="s2">'Cpu Brand'</span><span class="s1">].unique())</span>
+
+<span class="s3">#HDD.</span>
+<span class="s1">hdd= st.selectbox(</span><span class="s2">'HDD IN (GB)'</span><span class="s0">,</span><span class="s1">[</span><span class="s4">0</span><span class="s0">,</span><span class="s4">128</span><span class="s0">,</span><span class="s4">256</span><span class="s0">,</span><span class="s4">512</span><span class="s0">,</span><span class="s4">1024</span><span class="s0">,</span><span class="s4">2048</span><span class="s1">])</span>
+
+
+<span class="s3">#SSD.</span>
+<span class="s1">ssd= st.selectbox(</span><span class="s2">'SSD IN (GB)'</span><span class="s0">,</span><span class="s1">[</span><span class="s4">0</span><span class="s0">,</span><span class="s4">8</span><span class="s0">,</span><span class="s4">128</span><span class="s0">,</span><span class="s4">256</span><span class="s0">,</span><span class="s4">512</span><span class="s0">,</span><span class="s4">1024</span><span class="s1">])</span>
+
+<span class="s3">#GPU BRAND.</span>
+<span class="s1">gpu=st.selectbox(</span><span class="s2">'GPU BRAND'</span><span class="s0">,</span><span class="s1">data[</span><span class="s2">'Gpu brand'</span><span class="s1">].unique())</span>
+
+<span class="s3">#OPERATING SYSTEM.</span>
+<span class="s1">operating= st.selectbox(</span><span class="s2">'OPERATING SYSTEM'</span><span class="s0">,</span><span class="s1">data[</span><span class="s2">'Operating System'</span><span class="s1">].unique())</span>
+
+
+<span class="s0">if </span><span class="s1">st.button(</span><span class="s2">'PREDICT PRICE.'</span><span class="s1">):</span>
+    <span class="s1">ppi=</span><span class="s4">0</span>
+    <span class="s0">if </span><span class="s1">touchscreen==</span><span class="s2">'YES'</span><span class="s1">:</span>
+        <span class="s1">touchscreen=</span><span class="s4">1</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s1">touchscreen=</span><span class="s4">0</span>
+
+    <span class="s0">if </span><span class="s1">ips==</span><span class="s2">'YES'</span><span class="s1">:</span>
+        <span class="s1">ips=</span><span class="s4">1</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s1">ips=</span><span class="s4">0</span>
+
+    <span class="s1">X_res= int(resolution.split(</span><span class="s2">'x'</span><span class="s1">)[</span><span class="s4">0</span><span class="s1">])</span>
+    <span class="s1">Y_res =int(resolution.split(</span><span class="s2">'x'</span><span class="s1">)[</span><span class="s4">1</span><span class="s1">])</span>
+
+    <span class="s1">ppi= ((X_res**</span><span class="s4">2</span><span class="s1">) + (Y_res**</span><span class="s4">2</span><span class="s1">))**</span><span class="s4">0.5</span><span class="s1">/screen_size</span>
+
+    <span class="s1">query=np.array([company</span><span class="s0">,</span><span class="s1">typebook</span><span class="s0">,</span><span class="s1">ram</span><span class="s0">,</span><span class="s1">weight</span><span class="s0">,</span><span class="s1">touchscreen</span><span class="s0">,</span><span class="s1">ips</span><span class="s0">,</span><span class="s1">ppi</span><span class="s0">,</span><span class="s1">cpu_brand</span><span class="s0">,</span><span class="s1">hdd</span><span class="s0">,</span><span class="s1">ssd</span><span class="s0">,</span><span class="s1">gpu</span><span class="s0">, </span><span class="s1">operating])</span>
+    <span class="s1">query= query.reshape(</span><span class="s4">1</span><span class="s0">,</span><span class="s4">12</span><span class="s1">)</span>
+    <span class="s1">st.title(</span><span class="s2">&quot;The predicted price of this configuration is &quot; </span><span class="s1">+ str(int(np.exp(pipe.predict(query)[</span><span class="s4">0</span><span class="s1">])))) </span>
+
+</pre>
+</body>
+</html>
